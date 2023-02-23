@@ -4,8 +4,7 @@
 #include <map>
 #include <vector>
 #include <stdexcept>
-
-#include <boost/log/trivial.hpp>
+#include <iostream>
 
 #include <zint.h>
 
@@ -321,7 +320,7 @@ RGBPixelData barcode(
   try {
     zintsymbology = zintSymbology(symbology);
   } catch (const std::exception& ex) {
-    BOOST_LOG_TRIVIAL(debug) << "barcode: exception <" << ex.what() << ">";
+    std::cerr << "barcode: exception <" << ex.what() << ">" << std::endl;
     throw std::runtime_error(ex.what());
   }
 
@@ -329,7 +328,7 @@ RGBPixelData barcode(
   try {
     zintinputmode = zintInputMode(symbology);
   } catch (const std::exception& ex) {
-    BOOST_LOG_TRIVIAL(debug) << "barcode: exception <" << ex.what() << ">";
+    std::cerr << "barcode: exception <" << ex.what() << ">" << std::endl;
     throw std::runtime_error(ex.what());
   }
 
@@ -337,7 +336,7 @@ RGBPixelData barcode(
   try {
     zintshowhrt = zintShowHRT(symbology, true);
   } catch (const std::exception& ex) {
-    BOOST_LOG_TRIVIAL(debug) << "barcode: exception <" << ex.what() << ">";
+    std::cerr << "barcode: exception <" << ex.what() << ">" << std::endl;
     throw std::runtime_error(ex.what());
   }
 
@@ -345,13 +344,13 @@ RGBPixelData barcode(
   try {
     zintheight = zintHeight(symbology, height);
   } catch (const std::exception& ex) {
-    BOOST_LOG_TRIVIAL(debug) << "barcode: exception <" << ex.what() << ">";
+    std::cerr << "barcode: exception <" << ex.what() << ">" << std::endl;
     throw std::runtime_error(ex.what());
   }
 
   if (data.empty()) {
     const std::string what = "empty barcode payload unsupported";
-    BOOST_LOG_TRIVIAL(debug) << "barcode: exception <" << what << ">";
+    std::cerr << "barcode: exception <" << what << ">" << std::endl;
     throw std::runtime_error(what);
   }
 
@@ -372,7 +371,7 @@ RGBPixelData barcode(
   // render zint structure
   if (ZBarcode_Encode_and_Buffer(my_symbol, zintdata.data(), 0, 0) >= ZINT_ERROR) {
     std::string what = std::string("barcode backend error: ") + my_symbol->errtxt;
-    BOOST_LOG_TRIVIAL(debug) << "barcode: exception <" << what << ">";
+    std::cerr << "barcode: exception <" << what << ">" << std::endl;
 
     // destroy zint structure
     ZBarcode_Delete(my_symbol);
