@@ -284,10 +284,13 @@ void populateSymbolWithOptions(
   switch (symbol->symbology) {
     case BARCODE_AZTEC:
       populateSymbolWithAztecCodeOptions(symbol, barcodeOptions);
+      break;
     case BARCODE_DATAMATRIX:
       populateSymbolWithGS1DataMatrixOptions(symbol, barcodeOptions);
+      break;
     case BARCODE_QRCODE:
       populateSymbolWithQRCodeOptions(symbol, barcodeOptions);
+      break;
     default:
       (void)0;
   }
