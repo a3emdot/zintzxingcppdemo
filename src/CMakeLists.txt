@@ -26,11 +26,13 @@ endif(WIN32)
 
 find_package(Zint REQUIRED)
 find_package(ZXing REQUIRED)
+find_package(Threads REQUIRED)
 
 target_link_libraries(
   BarcodeReader
   zint::zint
   ZXing::Core
+  Threads::Threads
 )
 
 enable_testing()
