@@ -6,12 +6,16 @@ if NOT DEFINED WORKSPACE (
   set WORKSPACE=%cd%
 )
 
+if NOT DEFINED CI_JOB_NAME (
+    set CI_JOB_NAME=
+)
+
 if NOT DEFINED CMAKE_BUILD_TYPE (
   set CMAKE_BUILD_TYPE=Release
 )
 
 set SOURCE_DIR=%WORKSPACE%\
-set BINARY_DIR=%WORKSPACE%\build
+set BINARY_DIR=%WORKSPACE%\build\%CI_JOB_NAME%
 
 set PATH=%BINARY_DIR%\deps\build\prefix\bin;%PATH%
 
