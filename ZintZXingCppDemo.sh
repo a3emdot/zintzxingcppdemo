@@ -8,7 +8,7 @@ if test -z ${WORKSPACE+x}; then
 fi
 
 if test -z ${CI_JOB_NAME+x}; then
-    CI_JOB_NAME="";
+    CI_JOB_NAME=local;
 fi
 
 if test -z ${CMAKE_BUILD_TYPE+x}; then
