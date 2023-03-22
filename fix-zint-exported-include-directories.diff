@@ -1,0 +1,19 @@
+diff -urN zint-2.12.0/backend/CMakeLists.txt zint-2.12.0.new/backend/CMakeLists.txt
+--- zint-2.12.0/backend/CMakeLists.txt	2022-12-12 22:06:08.000000000 +0100
++++ zint-2.12.0.new/backend/CMakeLists.txt	2023-03-15 15:24:46.695934676 +0100
+@@ -46,12 +46,12 @@
+     endif()
+ endfunction()
+ 
+-function(zint_target_include_directories scope directory)
++function(zint_target_include_directories)
+     if(ZINT_SHARED)
+-        target_include_directories(zint ${scope} ${directory})
++        target_include_directories(zint ${ARGN})
+     endif()
+     if(ZINT_STATIC)
+-        target_include_directories(zint-static ${scope} ${directory})
++        target_include_directories(zint-static ${ARGN})
+     endif()
+ endfunction()
+ 
