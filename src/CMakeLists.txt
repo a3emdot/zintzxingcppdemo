@@ -16,7 +16,7 @@ target_include_directories(
 
 if(UNIX)
   set(Zint_DIR ${ZintZXingCppDemo_BINARY_DIR}/deps/build/prefix/share/zint)
-  set(ZXing_DIR ${ZintZXingCppDemo_BINARY_DIR}/deps/build/prefix/lib64/cmake/ZXing)
+  set(ZXing_DIR ${ZintZXingCppDemo_BINARY_DIR}/deps/build/prefix/lib/cmake/ZXing)
 endif(UNIX)
 
 if(WIN32)
