@@ -11,7 +11,7 @@ set(ZINT_SHA256 "83c76873cda163537de4b937d390de42a8ae487e830e73212c4a74c8cc49ce6
 set(ZINT_LOCAL_DIR third-party/zint)
 set(ZINT_LOCAL_FILE ${CMAKE_CURRENT_SOURCE_DIR}/distfiles/zint-${ZINT_VERSION}.tar.gz)
 
-set(ZINT_PATCH0 fix-zint-exported-include-directories.diff)
+set(ZINT_PATCH0 zint-2.12.0-fae3e6d9.diff)
 
 if(NOT EXISTS ${ZINT_LOCAL_FILE})
   file(DOWNLOAD ${ZINT_MASTER_FILE} ${ZINT_LOCAL_FILE} SHOW_PROGRESS)
@@ -41,7 +41,7 @@ set(ZXING_SHA256 "12b76b7005c30d34265fc20356d340da179b0b4d43d2c1b35bcca86776069f
 set(ZXING_LOCAL_DIR third-party/zxing-cpp)
 set(ZXING_LOCAL_FILE ${CMAKE_CURRENT_SOURCE_DIR}/distfiles/zxing-cpp-v${ZXING_VERSION}.tar.gz)
 
-set(ZXING_PATCH0 fix-zxing-cpp-array-out-of-bounds.diff)
+set(ZXING_PATCH0 zxing-cpp-2.0.0-eaafe9fc.diff)
 
 if(NOT EXISTS ${ZXING_LOCAL_FILE})
   file(DOWNLOAD ${ZXING_MASTER_FILE} ${ZXING_LOCAL_FILE} SHOW_PROGRESS)
