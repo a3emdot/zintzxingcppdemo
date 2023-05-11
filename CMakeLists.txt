@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.18)
 
 project(ZintZXingCppDemo)
 
-configure_file(CMakeLists.txt.deps ${CMAKE_BINARY_DIR}/deps/CMakeLists.txt COPYONLY)
+file(COPY deps DESTINATION ${CMAKE_BINARY_DIR})
 
 execute_process(
   COMMAND "${CMAKE_COMMAND}" -E make_directory build
