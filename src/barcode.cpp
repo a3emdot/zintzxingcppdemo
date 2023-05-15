@@ -309,21 +309,7 @@ RGBPixelData extractRGBPixelDataFromSymbol(
     resdata[ 3*k + 2 ] = my_symbol->bitmap[ 3*k + 2 ];
   }
 
-  // return RGBPixelData(width, height, 3*width, resdata);
-
-  // add a large quietzone
-  const unsigned int width2 = width*3;
-  const unsigned int height2 = height*3;
-  std::vector<unsigned char> resdata2(3*width2*height2, 255);
-  for (unsigned int x = 0; x < width; x++) {
-    for (unsigned int y = 0; y < height; y++) {
-      for (unsigned int b = 0; b < 3; b++) {
-        resdata2[ 3*((x+width) + (y+height)*width2) + b ] = resdata[ 3*(x + width*y) + b ];
-      }
-    }
-  }
-
-  return RGBPixelData(width2, height2, 3*width2, resdata2);
+  return RGBPixelData(width, height, 3*width, resdata);
 }
 
 RGBPixelData barcode(
