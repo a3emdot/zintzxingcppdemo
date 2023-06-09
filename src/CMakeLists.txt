@@ -28,10 +28,17 @@ find_package(Zint REQUIRED)
 find_package(ZXing REQUIRED)
 find_package(Threads REQUIRED)
 
+set(Zint_Link_Name zint::zint)
+if(BARCODE_LIBS_STATIC)
+  set(Zint_Link_Name zint::zint-static)
+endif()
+
+set(ZXing_Link_Name ZXing::Core)
+
 target_link_libraries(
   BarcodeReader
-  zint::zint
-  ZXing::Core
+  ${Zint_Link_Name}
+  ${ZXing_Link_Name}
   Threads::Threads
 )
 
