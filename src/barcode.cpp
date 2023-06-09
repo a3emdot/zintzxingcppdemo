@@ -53,7 +53,7 @@ int zintInputMode(const std::string& symbology)
     return DATA_MODE;
   }
   if (symbology == "EANX") {
-    return DATA_MODE | GS1PARENS_MODE;
+    return DATA_MODE;
   }
   if (symbology == "GS1_128") {
     return DATA_MODE | GS1PARENS_MODE;
