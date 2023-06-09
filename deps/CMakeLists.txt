@@ -41,7 +41,7 @@ set(ZXING_SHA256 "12b76b7005c30d34265fc20356d340da179b0b4d43d2c1b35bcca86776069f
 set(ZXING_LOCAL_DIR third-party/zxing-cpp)
 set(ZXING_LOCAL_FILE ${CMAKE_CURRENT_SOURCE_DIR}/distfiles/zxing-cpp-v${ZXING_VERSION}.tar.gz)
 
-set(ZXING_PATCH0 zxing-cpp-2.0.0-eaafe9fc.diff)
+set(ZXING_PATCH0 zxing-cpp-2.0.0-6f4affc5.diff)
 
 if(NOT EXISTS ${ZXING_LOCAL_FILE})
   file(DOWNLOAD ${ZXING_MASTER_FILE} ${ZXING_LOCAL_FILE} SHOW_PROGRESS)
