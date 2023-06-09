@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include <zint.h>
+#include <ZXing/ReadBarcode.h>
 
 int zintSymbology(const std::string& symbology)
 {
@@ -391,3 +392,47 @@ RGBPixelData barcode(
   return rgba;
 }
 
+bool validateBarcode(
+  const std::string& symbology,
+  const std::string& data,
+  const RGBPixelData& rgb
+) {
+  bool res = true;
+
+  ZXing::Result parseresult;
+  try {
+    ZXing::DecodeHints hints;
+    hints.setIsPure(true);
+
+    ZXing::ImageView view(rgb.data().data(), rgb.width(), rgb.height(), ZXing::ImageFormat::RGB);
+
+    parseresult = ZXing::ReadBarcode(view, hints);
+  } catch (...) {
+    res = false;
+  }
+
+  if (!res) {
+    return false;
+  }
+
+  if (parseresult.isValid() == false) {
+    res = false;
+  }
+
+  if (!res) {
+    return false;
+  }
+
+  std::string writtenData = data;
+  std::string readData = parseresult.text();
+
+  if (readData != writtenData) {
+    res = false;
+  }
+
+  if (!res) {
+    return false;
+  }
+
+  return res;
+}

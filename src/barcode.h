@@ -12,3 +12,9 @@ RGBPixelData barcode(
     unsigned int height
 );
 
+bool validateBarcode(
+  const std::string& symbology,
+  const std::string& data,
+  const RGBPixelData& rgb
+);
+

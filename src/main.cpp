@@ -3,8 +3,6 @@
 #include <memory>
 #include <string>
 
-#include <ZXing/ReadBarcode.h>
-
 #include "barcode.h"
 
 bool test(
@@ -44,42 +42,21 @@ bool test(
     return res;
   }
 
-  ZXing::Result parseresult;
+  bool valid = true;
   try {
-    ZXing::DecodeHints hints;
-    hints.setIsPure(true);
-
-    ZXing::ImageView view(rgb.data().data(), rgb.width(), rgb.height(), ZXing::ImageFormat::RGB);
-
-    parseresult = ZXing::ReadBarcode(view, hints);
+    valid = validateBarcode(symbology, data, rgb);
   } catch (...) {
-    std::cerr << 0 << " --- " << testname << std::endl;
     res = false;
   }
 
   if (!res) {
-    return res;
-  }
-
-  if (parseresult.isValid() == false) {
     std::cerr << 0 << " --- " << testname << std::endl;
-    res = false;
-  }
-
-  if (!res) {
     return res;
   }
 
-  std::string writtenData = data;
-  std::string readData = parseresult.text();
-
-  if (readData != writtenData) {
+  if (!valid) {
     std::cerr << 0 << " --- " << testname << std::endl;
-    res = false;
-  }
-
-  if (!res) {
-    return res;
+    return false;
   }
 
   return res;
