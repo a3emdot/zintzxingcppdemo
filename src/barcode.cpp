@@ -320,6 +320,12 @@ RGBPixelData barcode(
     unsigned int height
 )
 {
+  if (data.empty()) {
+    const std::string what = "empty barcode payload unsupported";
+    std::cerr << "barcode: exception <" << what << ">" << std::endl;
+    throw std::runtime_error(what);
+  }
+
   int zintsymbology = -1;
   try {
     zintsymbology = zintSymbology(symbology);
@@ -350,12 +356,6 @@ RGBPixelData barcode(
   } catch (const std::exception& ex) {
     std::cerr << "barcode: exception <" << ex.what() << ">" << std::endl;
     throw std::runtime_error(ex.what());
-  }
-
-  if (data.empty()) {
-    const std::string what = "empty barcode payload unsupported";
-    std::cerr << "barcode: exception <" << what << ">" << std::endl;
-    throw std::runtime_error(what);
   }
 
   std::vector<unsigned char> zintdata(data.cbegin(), data.cend());
