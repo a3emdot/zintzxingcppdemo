@@ -39,6 +39,63 @@ RGBPixelData::data() const
     return m_Data;
 }
 
+RGBPixelData RGBPixelData::rotate90() const
+{
+    std::vector<unsigned char> res(3*m_Height*m_Width, 0);
+
+    for (size_t y = 0; y < m_Height; y++) {
+        for (size_t x = 0; x < m_Width; x++) {
+            for (size_t c = 0; c < 3; c++) {
+                size_t p0 = 3*(y*m_Width + x) + c;
+                size_t xnew = y;
+                size_t ynew = m_Width-1-x;
+                size_t p90 = 3*(ynew*m_Height + xnew) + c;
+                res.at(p90) = m_Data.at(p0);
+            }
+        }
+    }
+
+    return RGBPixelData(m_Height, m_Width, 3*m_Height, res);
+}
+
+RGBPixelData RGBPixelData::rotate180() const
+{
+    std::vector<unsigned char> res(3*m_Width*m_Height, 0);
+
+    for (size_t y = 0; y < m_Height; y++) {
+        for (size_t x = 0; x < m_Width; x++) {
+            for (size_t c = 0; c < 3; c++) {
+                size_t p0 = 3*(y*m_Width + x) + c;
+                size_t xnew = m_Width-1-x;
+                size_t ynew = m_Height-1-y;
+                size_t p180 = 3*(ynew*m_Width + xnew) + c;
+                res.at(p180) = m_Data.at(p0);
+            }
+        }
+    }
+
+    return RGBPixelData(m_Width, m_Height, 3*m_Width, res);
+}
+
+RGBPixelData RGBPixelData::rotate270() const
+{
+    std::vector<unsigned char> res(3*m_Height*m_Width, 0);
+
+    for (size_t y = 0; y < m_Height; y++) {
+        for (size_t x = 0; x < m_Width; x++) {
+            for (size_t c = 0; c < 3; c++) {
+                size_t p0 = 3*(y*m_Width + x) + c;
+                size_t xnew = m_Height-1-y;
+                size_t ynew = x;
+                size_t p270 = 3*(ynew*m_Height + xnew) + c;
+                res.at(p270) = m_Data.at(p0);
+            }
+        }
+    }
+
+    return RGBPixelData(m_Height, m_Width, 3*m_Height, res);
+}
+
 void
 RGBPixelData::savePPMAscii( const std::string& filename ) const
 {

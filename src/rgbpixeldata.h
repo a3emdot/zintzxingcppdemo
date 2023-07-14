@@ -20,6 +20,10 @@ public:
 
     void savePPMAscii( const std::string& filename ) const;
 
+    RGBPixelData rotate90() const;
+    RGBPixelData rotate180() const;
+    RGBPixelData rotate270() const;
+
 private:
     unsigned int m_Width;
     unsigned int m_Height;
