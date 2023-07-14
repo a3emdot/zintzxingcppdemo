@@ -403,6 +403,7 @@ bool validateBarcode(
   try {
     ZXing::DecodeHints hints;
     hints.setIsPure(true);
+    hints.setTryRotate(true);
 
     ZXing::ImageView view(rgb.data().data(), rgb.width(), rgb.height(), ZXing::ImageFormat::RGB);
 
