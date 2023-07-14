@@ -5,6 +5,35 @@
 
 #include "barcode.h"
 
+bool testNoRotation(
+  const std::string& testname,
+  const std::string& symbology,
+  const std::string& data,
+  const RGBPixelData& rgb
+)
+{
+  bool res = true;
+
+  bool valid = true;
+  try {
+    valid = validateBarcode(symbology, data, rgb);
+  } catch (...) {
+    res = false;
+  }
+
+  if (!res) {
+    std::cerr << 0 << " --- " << testname << std::endl;
+    return res;
+  }
+
+  if (!valid) {
+    std::cerr << 0 << " --- " << testname << std::endl;
+    return false;
+  }
+
+  return res;
+}
+
 bool test(
   const std::string& symbology,
   const std::map<std::string, std::string>& options,
@@ -42,24 +71,12 @@ bool test(
     return res;
   }
 
-  bool valid = true;
-  try {
-    valid = validateBarcode(symbology, data, rgb);
-  } catch (...) {
-    res = false;
-  }
-
-  if (!res) {
-    std::cerr << 0 << " --- " << testname << std::endl;
-    return res;
-  }
-
-  if (!valid) {
+  if (!testNoRotation(testname, symbology, data, rgb)) {
     std::cerr << 0 << " --- " << testname << std::endl;
     return false;
   }
 
-  return res;
+  return true;
 }
 
 #define BARCODE_TEST(name, symbology, data) \
