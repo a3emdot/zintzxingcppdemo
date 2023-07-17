@@ -541,6 +541,10 @@ bool validateBarcode(
     res = false;
   }
 
+  if (!res) {
+    return false;
+  }
+
   if (hintSymbology == ZXing::BarcodeFormat::None) {
     res = false;
   }
@@ -562,7 +566,7 @@ bool validateBarcode(
     return false;
   }
 
-  if (parseresult.isValid() == false) {
+  if (!parseresult.isValid()) {
     res = false;
   }
 
@@ -579,7 +583,7 @@ bool validateBarcode(
   }
 
   if (!res) {
-    return res;
+    return false;
   }
 
   if (readData != writtenData) {
@@ -597,6 +601,10 @@ bool validateBarcode(
     readSymbology = parseresult.format();
   } catch (...) {
     res = false;
+  }
+
+  if (!res) {
+    return false;
   }
 
   if (readSymbology == ZXing::BarcodeFormat::None) {
