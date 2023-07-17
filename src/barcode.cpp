@@ -14,8 +14,20 @@ int zintSymbology(const std::string& symbology)
   if (symbology == "UPCA") {
     return BARCODE_UPCA;
   }
-  if (symbology == "EANX") {
+  if (symbology == "UPCA_CHK") {
+    return BARCODE_UPCA_CHK;
+  }
+  if (symbology == "EAN8") {
     return BARCODE_EANX;
+  }
+  if (symbology == "EAN8_CHK") {
+    return BARCODE_EANX_CHK;
+  }
+  if (symbology == "EAN13") {
+    return BARCODE_EANX;
+  }
+  if (symbology == "EAN13_CHK") {
+    return BARCODE_EANX_CHK;
   }
   if (symbology == "GS1_128") {
     return BARCODE_GS1_128;
@@ -52,7 +64,19 @@ int zintInputMode(const std::string& symbology)
   if (symbology == "UPCA") {
     return DATA_MODE;
   }
-  if (symbology == "EANX") {
+  if (symbology == "UPCA_CHK") {
+    return DATA_MODE;
+  }
+  if (symbology == "EAN8") {
+    return DATA_MODE;
+  }
+  if (symbology == "EAN8_CHK") {
+    return DATA_MODE;
+  }
+  if (symbology == "EAN13") {
+    return DATA_MODE;
+  }
+  if (symbology == "EAN13_CHK") {
     return DATA_MODE;
   }
   if (symbology == "GS1_128") {
@@ -95,7 +119,19 @@ int zintShowHRT(const std::string& symbology, bool flag)
   if (symbology == "UPCA") {
     return res;
   }
-  if (symbology == "EANX") {
+  if (symbology == "UPCA_CHK") {
+    return res;
+  }
+  if (symbology == "EAN8") {
+    return res;
+  }
+  if (symbology == "EAN8_CHK") {
+    return res;
+  }
+  if (symbology == "EAN13") {
+    return res;
+  }
+  if (symbology == "EAN13_CHK") {
     return res;
   }
   if (symbology == "GS1_128") {
@@ -297,6 +333,27 @@ void populateSymbolWithOptions(
   }
 }
 
+int zintFixZintSymbology(const std::string& input, int zintsymbology)
+{
+  if (zintsymbology == BARCODE_UPCA) {
+    if (input.size() == 12) {
+      return BARCODE_UPCA_CHK;
+    }
+  }
+  if (zintsymbology == BARCODE_EANX) {
+    if (input.size() == 8) {
+      return BARCODE_EANX_CHK;
+    }
+  }
+  if (zintsymbology == BARCODE_EANX) {
+    if (input.size() == 13) {
+      return BARCODE_EANX_CHK;
+    }
+  }
+
+  return zintsymbology;
+}
+
 RGBPixelData extractRGBPixelDataFromSymbol(
   zint_symbol* my_symbol
 )
@@ -358,6 +415,8 @@ RGBPixelData barcode(
     throw std::runtime_error(ex.what());
   }
 
+  zintsymbology = zintFixZintSymbology(data, zintsymbology);
+
   std::vector<unsigned char> zintdata(data.cbegin(), data.cend());
   zintdata.push_back('\0');
 
@@ -392,6 +451,81 @@ RGBPixelData barcode(
   return rgba;
 }
 
+ZXing::BarcodeFormat zxingSymbology(const std::string& symbology)
+{
+  if (symbology == "UPCA") {
+    return ZXing::BarcodeFormat::UPCA;
+  }
+  if (symbology == "UPCA_CHK") {
+    return ZXing::BarcodeFormat::UPCA;
+  }
+  if (symbology == "EAN8") {
+    return ZXing::BarcodeFormat::EAN8;
+  }
+  if (symbology == "EAN8_CHK") {
+    return ZXing::BarcodeFormat::EAN8;
+  }
+  if (symbology == "EAN13") {
+    return ZXing::BarcodeFormat::EAN13;
+  }
+  if (symbology == "EAN13_CHK") {
+    return ZXing::BarcodeFormat::EAN13;
+  }
+  // TODO(AM): check this one vs the CODE128 one
+  if (symbology == "GS1_128") {
+    return ZXing::BarcodeFormat::Code128;
+  }
+  if (symbology == "CODE128") {
+    return ZXing::BarcodeFormat::Code128;
+  }
+  if (symbology == "GS1_DBAR_OMN") {
+    return ZXing::BarcodeFormat::DataBar;
+  }
+  if (symbology == "GS1_DBAR_EXP") {
+    return ZXing::BarcodeFormat::DataBarExpanded;
+  }
+  if (symbology == "GS1_DBAR_OMNSTK") {
+    return ZXing::BarcodeFormat::DataBar;
+  }
+  if (symbology == "GS1_DBAR_EXPSTK") {
+    return ZXing::BarcodeFormat::DataBarExpanded;
+  }
+  if (symbology == "AZTEC") {
+    return ZXing::BarcodeFormat::Aztec;
+  }
+  if (symbology == "GS1_DATAMATRIX") {
+    return ZXing::BarcodeFormat::DataMatrix;
+  }
+  if (symbology == "QRCODE") {
+    return ZXing::BarcodeFormat::QRCode;
+  }
+  throw std::runtime_error("unsupported barcode symbology");
+}
+
+std::string zxingFixReadData(
+  int zintsymbology,
+  const std::string& writtendata,
+  const std::string& readdata
+)
+{
+  if (zintsymbology == BARCODE_UPCA) {
+    if (writtendata.size() == 12) {
+      return readdata;
+    }
+    return readdata.substr(0, readdata.size()-1);
+  }
+  if (zintsymbology == BARCODE_EANX) {
+    if (writtendata.size() == 8) {
+      return readdata;
+    }
+    if (writtendata.size() == 13) {
+      return readdata;
+    }
+    return readdata.substr(0, readdata.size()-1);
+  }
+  return readdata;
+}
+
 bool validateBarcode(
   const std::string& symbology,
   const std::string& data,
@@ -399,10 +533,23 @@ bool validateBarcode(
 ) {
   bool res = true;
 
+  ZXing::BarcodeFormat hintSymbology = ZXing::BarcodeFormat::None;
+
+  try {
+    hintSymbology = zxingSymbology(symbology);
+  } catch (...) {
+    res = false;
+  }
+
+  if (hintSymbology == ZXing::BarcodeFormat::None) {
+    res = false;
+  }
+
   ZXing::Result parseresult;
   try {
     ZXing::DecodeHints hints;
     hints.setIsPure(true);
+    hints.setFormats(hintSymbology);
 
     ZXing::ImageView view(rgb.data().data(), rgb.width(), rgb.height(), ZXing::ImageFormat::RGB);
 
@@ -425,8 +572,40 @@ bool validateBarcode(
 
   std::string writtenData = data;
   std::string readData = parseresult.text();
+  try {
+    readData = zxingFixReadData(zintSymbology(symbology), writtenData, readData);
+  } catch (...) {
+    res = false;
+  }
+
+  if (!res) {
+    return res;
+  }
 
   if (readData != writtenData) {
+    res = false;
+  }
+
+  if (!res) {
+    return false;
+  }
+
+  ZXing::BarcodeFormat writtenSymbology = ZXing::BarcodeFormat::None;
+  ZXing::BarcodeFormat readSymbology = ZXing::BarcodeFormat::None;
+  try {
+    writtenSymbology = zxingSymbology(symbology);
+    readSymbology = parseresult.format();
+  } catch (...) {
+    res = false;
+  }
+
+  if (readSymbology == ZXing::BarcodeFormat::None) {
+    res = false;
+  }
+  if (writtenSymbology == ZXing::BarcodeFormat::None) {
+    res = false;
+  }
+  if (readSymbology != writtenSymbology) {
     res = false;
   }
 
