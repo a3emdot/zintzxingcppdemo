@@ -6,7 +6,7 @@
 #include "barcode.h"
 
 bool testNoRotation(
-  const std::string& testname,
+  const std::string& /*testname*/,
   const std::string& symbology,
   const std::string& data,
   const RGBPixelData& rgb
@@ -22,12 +22,10 @@ bool testNoRotation(
   }
 
   if (!res) {
-    std::cerr << 0 << " --- " << testname << std::endl;
     return res;
   }
 
   if (!valid) {
-    std::cerr << 0 << " --- " << testname << std::endl;
     return false;
   }
 
