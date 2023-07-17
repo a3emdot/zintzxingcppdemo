@@ -548,7 +548,7 @@ bool validateBarcode(
   ZXing::Result parseresult;
   try {
     ZXing::DecodeHints hints;
-    hints.setIsPure(true);
+//    hints.setIsPure(true);
     hints.setFormats(hintSymbology);
 
     ZXing::ImageView view(rgb.data().data(), rgb.width(), rgb.height(), ZXing::ImageFormat::RGB);

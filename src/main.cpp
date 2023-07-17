@@ -74,6 +74,21 @@ bool test(
     return false;
   }
 
+  if (!testNoRotation(testname, symbology, data, rgb.rotate90())) {
+    std::cerr << 0 << " --- " << testname << std::endl;
+    return false;
+  }
+
+  if (!testNoRotation(testname, symbology, data, rgb.rotate180())) {
+    std::cerr << 0 << " --- " << testname << std::endl;
+    return false;
+  }
+
+  if (!testNoRotation(testname, symbology, data, rgb.rotate270())) {
+    std::cerr << 0 << " --- " << testname << std::endl;
+    return false;
+  }
+
   return true;
 }
 
