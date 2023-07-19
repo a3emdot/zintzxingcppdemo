@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.18)
 
-project(BarcodeReader)
+project(zintzxingcppdemo-test)
 
 file(GLOB PRO_SRCS
       "*.h"
       "*.cpp")
 
-add_executable(BarcodeReader ${PRO_SRCS})
+add_executable(zintzxingcppdemo-test ${PRO_SRCS})
 
 target_include_directories(
-  BarcodeReader
+  zintzxingcppdemo-test
   PRIVATE
     ${CMAKE_CURRENT_BINARY_DIR}
 )
@@ -36,7 +36,7 @@ endif()
 set(ZXing_Link_Name ZXing::Core)
 
 target_link_libraries(
-  BarcodeReader
+  zintzxingcppdemo-test
   ${Zint_Link_Name}
   ${ZXing_Link_Name}
   Threads::Threads
@@ -46,8 +46,8 @@ enable_testing()
 
   add_test(
     NAME
-    BarcodeReader
+    zintzxingcppdemo-test
     COMMAND
-    BarcodeReader
+    zintzxingcppdemo-test
   )
 
