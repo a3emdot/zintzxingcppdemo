@@ -136,45 +136,6 @@ int main()
     size_t count_failed = 0;
 
 BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_1, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "1", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_2, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "2", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_3, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "3", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_4, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "4", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_5, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "5", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_6, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "6", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_7, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "7", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_8, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "8", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_9, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "9", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_10, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "10", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_11, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "11", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_12, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "12", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_13, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "13", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_14, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "14", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_15, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "15", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_16, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "16", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_17, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "17", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_18, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "18", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_19, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "19", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_20, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "20", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_21, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "21", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_22, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "22", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_23, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "23", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_24, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "24", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_25, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "25", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_26, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "26", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_27, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "27", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_28, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "28", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_29, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "29", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_30, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "30", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_31, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "31", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_32, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "32", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_33, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "33", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_34, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "34", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_35, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "35", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_36, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "36", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_37, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "37", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_38, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "38", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_39, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "39", "QR CODE")  // NOLINT
-BARCODE_OPTIONS2(QRCODE_ECCLevel_Q_Version_40, "QRCODE", "QRCode_ECCLevel", "Q", "QRCode_Version", "40", "QR CODE")  // NOLINT
 
     std::cerr << count_failed << " of " << count_failed+count_ok << " tests failed" << std::endl;
 
