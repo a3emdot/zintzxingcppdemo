@@ -526,7 +526,7 @@ std::string zxingFixReadData(
   return readdata;
 }
 
-bool validateBarcode(
+bool validateBarcodeNoRotation(
   const std::string& symbology,
   const std::string& data,
   const RGBPixelData& rgb
@@ -620,6 +620,21 @@ bool validateBarcode(
   if (!res) {
     return false;
   }
+
+  return res;
+}
+
+bool validateBarcode(
+  const std::string& symbology,
+  const std::string& data,
+  const RGBPixelData& rgb
+) {
+  bool res = false;
+
+  res |= validateBarcodeNoRotation(symbology, data, rgb);
+  res |= validateBarcodeNoRotation(symbology, data, rgb.rotate90());
+  res |= validateBarcodeNoRotation(symbology, data, rgb.rotate180());
+  res |= validateBarcodeNoRotation(symbology, data, rgb.rotate270());
 
   return res;
 }
