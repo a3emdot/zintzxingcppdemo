@@ -549,6 +549,10 @@ bool validateBarcodeNoRotation(
     res = false;
   }
 
+  if (!res) {
+    return false;
+  }
+
   ZXing::Result parseresult;
   try {
     ZXing::DecodeHints hints;
