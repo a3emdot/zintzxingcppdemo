@@ -92,48 +92,110 @@ bool test(
   return true;
 }
 
+#if defined FUZZER_MODE
 #define BARCODE_TEST(name, symbology, data) \
   { \
+    auto payload = fuzzer_data; \
     bool res = test( \
         symbology, \
         std::map<std::string, std::string>{}, \
-        data \
+        payload \
     ); \
     count_ok += (res == true ? 1 : 0); \
     count_failed += (res == false ? 1 : 0); \
   }
+#else
+#define BARCODE_TEST(name, symbology, data) \
+  { \
+    auto payload = data; \
+    bool res = test( \
+        symbology, \
+        std::map<std::string, std::string>{}, \
+        payload \
+    ); \
+    count_ok += (res == true ? 1 : 0); \
+    count_failed += (res == false ? 1 : 0); \
+  }
+#endif
 
+#if defined FUZZER_MODE
 #define BARCODE_OPTIONS1(name, symbology, option1Name, option1Value, data) \
   { \
+    auto payload = fuzzer_data; \
     bool res = test( \
         symbology, \
         std::map<std::string, std::string>{ \
           {option1Name, option1Value} \
         }, \
-        data \
+        payload \
     ); \
     count_ok += (res == true ? 1 : 0); \
     count_failed += (res == false ? 1 : 0); \
   }
+#else
+#define BARCODE_OPTIONS1(name, symbology, option1Name, option1Value, data) \
+  { \
+    auto payload = data; \
+    bool res = test( \
+        symbology, \
+        std::map<std::string, std::string>{ \
+          {option1Name, option1Value} \
+        }, \
+        payload \
+    ); \
+    count_ok += (res == true ? 1 : 0); \
+    count_failed += (res == false ? 1 : 0); \
+  }
+#endif
 
+#if defined FUZZER_MODE
 #define BARCODE_OPTIONS2(name, symbology, option1Name, option1Value, option2Name, option2Value, data) \
   { \
+    auto payload = fuzzer_data; \
     bool res = test( \
         symbology, \
         std::map<std::string, std::string>{ \
           {option1Name, option1Value}, \
           {option2Name, option2Value} \
         }, \
-        data \
+        payload \
     ); \
     count_ok += (res == true ? 1 : 0); \
     count_failed += (res == false ? 1 : 0); \
   }
+#else
+#define BARCODE_OPTIONS2(name, symbology, option1Name, option1Value, option2Name, option2Value, data) \
+  { \
+    auto payload = data; \
+    bool res = test( \
+        symbology, \
+        std::map<std::string, std::string>{ \
+          {option1Name, option1Value}, \
+          {option2Name, option2Value} \
+        }, \
+        payload \
+    ); \
+    count_ok += (res == true ? 1 : 0); \
+    count_failed += (res == false ? 1 : 0); \
+  }
+#endif
 
+#if defined FUZZER_MODE
+// fuzz_target.cc
+extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size)
+{
+    size_t count_ok = 0;
+    size_t count_failed = 0;
+
+    std::cerr << "--- fuzzer mode begin" << std::endl;
+
+    std::string fuzzer_data(Data, Data + Size);
+#else
 int main()
 {
     size_t count_ok = 0;
     size_t count_failed = 0;
+#endif
 
 BARCODE_TEST(UPCA_1, "UPCA", "00000012345")  // NOLINT
 BARCODE_TEST(UPCA_2, "UPCA", "12345678901")  // NOLINT
@@ -574,7 +636,14 @@ BARCODE_OPTIONS2(QRCODE_ECCLevel_H_Version_38, "QRCODE", "QRCode_ECCLevel", "H",
 BARCODE_OPTIONS2(QRCODE_ECCLevel_H_Version_39, "QRCODE", "QRCode_ECCLevel", "H", "QRCode_Version", "39", "QR CODE")  // NOLINT
 BARCODE_OPTIONS2(QRCODE_ECCLevel_H_Version_40, "QRCODE", "QRCode_ECCLevel", "H", "QRCode_Version", "40", "QR CODE")  // NOLINT
 
+#if defined FUZZER_MODE
+    std::cerr << "--- fuzzer mode end" << std::endl;
+
+    return 0;
+}
+#else
     std::cerr << count_failed << " of " << count_failed+count_ok << " tests failed" << std::endl;
 
     return (count_failed != 0);
 }
+#endif /* FUZZER_MODE */

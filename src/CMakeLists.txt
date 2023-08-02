@@ -8,6 +8,19 @@ file(GLOB PRO_SRCS
 
 add_executable(zintzxingcppdemo-test ${PRO_SRCS})
 
+if(FUZZER_MODE)
+  target_compile_options(
+    zintzxingcppdemo-test
+  PRIVATE
+    -DFUZZER_MODE -fsanitize=fuzzer,address
+  )
+  target_link_options(
+    zintzxingcppdemo-test
+  PRIVATE
+    -fsanitize=fuzzer,address
+  )
+endif(FUZZER_MODE)
+
 target_include_directories(
   zintzxingcppdemo-test
   PRIVATE
