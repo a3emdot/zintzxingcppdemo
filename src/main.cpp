@@ -95,11 +95,11 @@ bool test(
 #if defined FUZZER_MODE
 #define BARCODE_TEST(name, symbology, data) \
   { \
-    auto payload = fuzzer_data; \
     bool res = test( \
         symbology, \
         std::map<std::string, std::string>{}, \
-        payload \
+        fuzzer_data, \
+	fuzzer_height \
     ); \
     count_ok += (res == true ? 1 : 0); \
     count_failed += (res == false ? 1 : 0); \
@@ -111,7 +111,7 @@ bool test(
     bool res = test( \
         symbology, \
         std::map<std::string, std::string>{}, \
-        payload \
+        data \
     ); \
     count_ok += (res == true ? 1 : 0); \
     count_failed += (res == false ? 1 : 0); \
@@ -121,13 +121,13 @@ bool test(
 #if defined FUZZER_MODE
 #define BARCODE_OPTIONS1(name, symbology, option1Name, option1Value, data) \
   { \
-    auto payload = fuzzer_data; \
     bool res = test( \
         symbology, \
         std::map<std::string, std::string>{ \
           {option1Name, option1Value} \
         }, \
-        payload \
+        fuzzer_data, \
+	fuzzer_height \
     ); \
     count_ok += (res == true ? 1 : 0); \
     count_failed += (res == false ? 1 : 0); \
@@ -141,7 +141,7 @@ bool test(
         std::map<std::string, std::string>{ \
           {option1Name, option1Value} \
         }, \
-        payload \
+        data \
     ); \
     count_ok += (res == true ? 1 : 0); \
     count_failed += (res == false ? 1 : 0); \
@@ -151,14 +151,14 @@ bool test(
 #if defined FUZZER_MODE
 #define BARCODE_OPTIONS2(name, symbology, option1Name, option1Value, option2Name, option2Value, data) \
   { \
-    auto payload = fuzzer_data; \
     bool res = test( \
         symbology, \
         std::map<std::string, std::string>{ \
           {option1Name, option1Value}, \
           {option2Name, option2Value} \
         }, \
-        payload \
+        fuzzer_data, \
+	fuzzer_height \
     ); \
     count_ok += (res == true ? 1 : 0); \
     count_failed += (res == false ? 1 : 0); \
@@ -166,14 +166,13 @@ bool test(
 #else
 #define BARCODE_OPTIONS2(name, symbology, option1Name, option1Value, option2Name, option2Value, data) \
   { \
-    auto payload = data; \
     bool res = test( \
         symbology, \
         std::map<std::string, std::string>{ \
           {option1Name, option1Value}, \
           {option2Name, option2Value} \
         }, \
-        payload \
+        data \
     ); \
     count_ok += (res == true ? 1 : 0); \
     count_failed += (res == false ? 1 : 0); \
@@ -189,7 +188,12 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size)
 
     std::cerr << "--- fuzzer mode begin" << std::endl;
 
-    std::string fuzzer_data(Data, Data + Size);
+    if( Size <= 2 ) {
+        return 0;
+    }
+
+    std::string fuzzer_data(Data+2, Data + Size);
+    int fuzzer_height = (Data[0]*256 + Data[1]) % 1000;
 #else
 int main()
 {
