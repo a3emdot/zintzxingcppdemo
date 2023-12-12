@@ -555,12 +555,11 @@ bool validateBarcodeNoRotation(
 
   ZXing::Result parseresult;
   try {
-    ZXing::DecodeHints hints;
-    hints.setFormats(hintSymbology);
+    auto options = ZXing::ReaderOptions().setFormats(hintSymbology);
 
     ZXing::ImageView view(rgb.data().data(), rgb.width(), rgb.height(), ZXing::ImageFormat::RGB);
 
-    parseresult = ZXing::ReadBarcode(view, hints);
+    parseresult = ZXing::ReadBarcode(view, options);
   } catch (...) {
     res = false;
   }
