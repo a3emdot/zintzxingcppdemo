@@ -360,14 +360,18 @@ RGBPixelData extractRGBPixelDataFromSymbol(
 {
   const unsigned int width = my_symbol->bitmap_width;
   const unsigned int height = my_symbol->bitmap_height;
-  std::vector<unsigned char> resdata(3*width*height, 0);
-  for (unsigned int k = 0; k < width*height; k++) {
-    resdata[ 3*k + 0 ] = my_symbol->bitmap[ 3*k + 0 ];
-    resdata[ 3*k + 1 ] = my_symbol->bitmap[ 3*k + 1 ];
-    resdata[ 3*k + 2 ] = my_symbol->bitmap[ 3*k + 2 ];
+  std::vector<unsigned char> resdata(3*(width+4)*(height+4), 255);
+  for (unsigned int x = 0; x < width; x++) {
+    for (unsigned int y = 0; y < height; y++) {
+      auto k = y*width + x;
+      auto resk = (y+2)*(width+4) + (x+2);
+      resdata[ 3*resk + 0 ] = my_symbol->bitmap[ 3*k + 0 ];
+      resdata[ 3*resk + 1 ] = my_symbol->bitmap[ 3*k + 1 ];
+      resdata[ 3*resk + 2 ] = my_symbol->bitmap[ 3*k + 2 ];
+    }
   }
 
-  return RGBPixelData(width, height, 3*width, resdata);
+  return RGBPixelData(width+4, height+4, 3*(width+4), resdata);
 }
 
 RGBPixelData barcode(
@@ -634,9 +638,6 @@ bool validateBarcode(
   bool res = false;
 
   res |= validateBarcodeNoRotation(symbology, data, rgb);
-  res |= validateBarcodeNoRotation(symbology, data, rgb.rotate90());
-  res |= validateBarcodeNoRotation(symbology, data, rgb.rotate180());
-  res |= validateBarcodeNoRotation(symbology, data, rgb.rotate270());
 
   return res;
 }
