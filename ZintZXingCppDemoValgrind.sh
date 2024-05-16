@@ -30,6 +30,6 @@ cmake -E chdir ${BINARY_DIR}/deps/build cmake --build . --config ${CMAKE_BUILD_T
 cmake -E chdir ${BINARY_DIR} cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ${CMAKE_ARGS} ${SOURCE_DIR}
 cmake -E chdir ${BINARY_DIR} cmake --build . --config ${CMAKE_BUILD_TYPE}
 
-cmake -E chdir ${BINARY_DIR}/src valgrind ./zintzxingcppdemo-test > ${BINARY_DIR}/src/valgrind.log 2>&1
-cmake -E chdir ${BINARY_DIR}/src cat valgrind.log
+cmake -E chdir ${BINARY_DIR} valgrind ./zintzxingcppdemo-test > ${BINARY_DIR}/src/valgrind.log 2>&1
+cmake -E chdir ${BINARY_DIR} cat valgrind.log
 

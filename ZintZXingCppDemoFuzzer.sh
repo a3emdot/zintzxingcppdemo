@@ -30,5 +30,5 @@ cmake -E chdir ${BINARY_DIR}/deps/build cmake --build . --config ${CMAKE_BUILD_T
 cmake -E chdir ${BINARY_DIR} cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ${CMAKE_ARGS} -DFUZZER_MODE=On ${SOURCE_DIR}
 cmake -E chdir ${BINARY_DIR} cmake --build . --config ${CMAKE_BUILD_TYPE}
 
-cmake -E chdir ${BINARY_DIR}/src ./zintzxingcppdemo-test ${SOURCE_DIR}/fuzzer_corpus
+cmake -E chdir ${BINARY_DIR} ./zintzxingcppdemo-test ${SOURCE_DIR}/fuzzer_corpus
 

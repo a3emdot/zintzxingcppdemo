@@ -31,5 +31,5 @@ cmake -E chdir %BINARY_DIR%\deps\build cmake --build . --config %CMAKE_BUILD_TYP
 cmake -E chdir %BINARY_DIR% cmake -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% %CMAKE_ARGS% %SOURCE_DIR%
 cmake -E chdir %BINARY_DIR% cmake --build . --config %CMAKE_BUILD_TYPE%
 
-cmake -E chdir %BINARY_DIR%\src ctest -C %CMAKE_BUILD_TYPE%
+cmake -E chdir %BINARY_DIR% ctest -C %CMAKE_BUILD_TYPE%
 
