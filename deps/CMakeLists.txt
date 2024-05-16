@@ -8,7 +8,6 @@ set(ZINT_VERSION "2.13.0")
 set(ZINT_MASTER_DIR https://github.com/zint/zint/archive)
 set(ZINT_MASTER_FILE ${ZINT_MASTER_DIR}/${ZINT_VERSION}.tar.gz)
 set(ZINT_SHA256 "480d95e46d2a2dae204c0f2b6433f185aba50786a0f00d1420752a6e287311ec")
-set(ZINT_LOCAL_DIR third-party/zint)
 
 #set(ZINT_PATCH0 zint-2.12.0-2e350232.diff)
 
@@ -22,9 +21,9 @@ endif()
 
 ExternalProject_Add(
   zint-build
-  SOURCE_DIR ${CMAKE_SOURCE_DIR}/${ZINT_LOCAL_DIR}
-  BINARY_DIR ${CMAKE_BINARY_DIR}/${ZINT_LOCAL_DIR}
-  STAMP_DIR ${CMAKE_BINARY_DIR}/${ZINT_LOCAL_DIR}/stamp
+  SOURCE_DIR ${CMAKE_BINARY_DIR}/zint/src
+  BINARY_DIR ${CMAKE_BINARY_DIR}/zint/build
+  STAMP_DIR ${CMAKE_BINARY_DIR}/zint/stamp
   URL ${ZINT_MASTER_FILE}
   URL_HASH SHA256=${ZINT_SHA256}
 #  PATCH_COMMAND
@@ -38,7 +37,6 @@ set(ZXING_VERSION "2.2.1")
 set(ZXING_MASTER_DIR https://github.com/nu-book/zxing-cpp/archive)
 set(ZXING_MASTER_FILE ${ZXING_MASTER_DIR}/v${ZXING_VERSION}.tar.gz)
 set(ZXING_SHA256 "02078ae15f19f9d423a441f205b1d1bee32349ddda7467e2c84e8f08876f8635")
-set(ZXING_LOCAL_DIR third-party/zxing-cpp)
 
 #set(ZXING_PATCH0 zxing-cpp-2.0.0-9a36d24e.diff)
 
@@ -51,9 +49,9 @@ endif()
 
 ExternalProject_Add(
   zxing-build
-  SOURCE_DIR ${CMAKE_SOURCE_DIR}/${ZXING_LOCAL_DIR}
-  BINARY_DIR ${CMAKE_BINARY_DIR}/${ZXING_LOCAL_DIR}
-  STAMP_DIR ${CMAKE_BINARY_DIR}/${ZXING_LOCAL_DIR}/stamp
+  SOURCE_DIR ${CMAKE_BINARY_DIR}/zxing/src
+  BINARY_DIR ${CMAKE_BINARY_DIR}/zxing/build
+  STAMP_DIR ${CMAKE_BINARY_DIR}/zxing/stamp
   URL ${ZXING_MASTER_FILE}
   URL_HASH SHA256=${ZXING_SHA256}
 #  PATCH_COMMAND

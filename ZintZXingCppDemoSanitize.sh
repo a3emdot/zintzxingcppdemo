@@ -21,10 +21,7 @@ BINARY_DIR=${WORKSPACE}/build/${CI_JOB_NAME}
 cmake -E rm -rf         ${BINARY_DIR}
 cmake -E make_directory ${BINARY_DIR}/deps
 
-cmake -E copy  ${SOURCE_DIR}/deps/CMakeLists.txt ${BINARY_DIR}/deps/CMakeLists.txt
-cmake -E make_directory ${BINARY_DIR}/deps/build
-
-cmake -S ${BINARY_DIR}/deps -B ${BINARY_DIR}/deps/build -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+cmake -S ${SOURCE_DIR}/deps -B ${BINARY_DIR}/deps/build -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
 cmake --build ${BINARY_DIR}/deps/build --config ${CMAKE_BUILD_TYPE}
 
 cmake -S ${SOURCE_DIR} -B ${BINARY_DIR} -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ${CMAKE_ARGS} -DSANITIZE_MODE=On ${SOURCE_DIR}
