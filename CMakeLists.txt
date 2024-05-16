@@ -9,8 +9,8 @@ option(BARCODE_LIBS_STATIC "Use static libraries" OFF)
 file(GLOB PRO_SRCS_CXX "src/*.h" "src/*.cpp")
 file(GLOB PRO_SRCS_C "src/*.c")
 
-set(Zint_DIR ${ZintZXingCppDemo_BINARY_DIR}/deps/build/prefix/share/zint)
-set(ZXing_DIR ${ZintZXingCppDemo_BINARY_DIR}/deps/build/prefix/lib/cmake/ZXing)
+set(Zint_DIR ${PROJECT_BINARY_DIR}/deps/instal/share/zint)
+set(ZXing_DIR ${PROJECT_BINARY_DIR}/deps/instal/lib/cmake/ZXing)
 
 find_package(Zint REQUIRED)
 find_package(ZXing REQUIRED)
