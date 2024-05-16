@@ -15,13 +15,17 @@ if test -z ${CMAKE_BUILD_TYPE+x}; then
     CMAKE_BUILD_TYPE=Release;
 fi
 
-SOURCE_DIR=${WORKSPACE}/
+SOURCE_DIR=${WORKSPACE}
 BINARY_DIR=${WORKSPACE}/build/${CI_JOB_NAME}
 
 cmake -E rm -rf         ${BINARY_DIR}
-cmake -E make_directory ${BINARY_DIR}
-cmake -E chdir          ${BINARY_DIR} cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ${CMAKE_ARGS} ${SOURCE_DIR}
-cmake -E chdir          ${BINARY_DIR} cmake --build . --config ${CMAKE_BUILD_TYPE}
-cmake -E chdir          ${BINARY_DIR}/src valgrind ./zintzxingcppdemo-test > ${BINARY_DIR}/src/valgrind.log 2>&1
-cmake -E chdir          ${BINARY_DIR}/src cat valgrind.log
+cmake -E make_directory ${BINARY_DIR}/deps
+
+cmake -E copy  ${SOURCE_DIR}/deps/CMakeLists.txt ${BINARY_DIR}/deps/CMakeLists.txt
+
+cmake -E chdir ${BINARY_DIR} cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ${CMAKE_ARGS} ${SOURCE_DIR}
+cmake -E chdir ${BINARY_DIR} cmake --build . --config ${CMAKE_BUILD_TYPE}
+
+cmake -E chdir ${BINARY_DIR}/src valgrind ./zintzxingcppdemo-test > ${BINARY_DIR}/src/valgrind.log 2>&1
+cmake -E chdir ${BINARY_DIR}/src cat valgrind.log
 

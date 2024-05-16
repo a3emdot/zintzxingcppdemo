@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.18)
 
 project(ZintZXingCppDemo)
 
-file(COPY deps DESTINATION ${CMAKE_BINARY_DIR})
-
 execute_process(
   COMMAND
     "${CMAKE_COMMAND}"
