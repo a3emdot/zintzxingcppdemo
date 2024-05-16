@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.18)
 
 project(ZintZXingCppDemo)
 
+option(FUZZER_MODE "Enable fuzzer mode" OFF)
+option(SANITIZE_MODE "Enable sanitize mode" OFF)
+option(BARCODE_LIBS_STATIC "Use static libraries" OFF)
+
 file(GLOB PRO_SRCS_CXX "src/*.h" "src/*.cpp")
 file(GLOB PRO_SRCS_C "src/*.c")
 
@@ -12,55 +16,26 @@ find_package(Zint REQUIRED)
 find_package(ZXing REQUIRED)
 find_package(Threads REQUIRED)
 
-set(Zint_Link_Name zint::zint)
-if(BARCODE_LIBS_STATIC)
-  set(Zint_Link_Name zint::zint-static)
-endif()
-
-set(ZXing_Link_Name ZXing::Core)
-
 enable_testing()
 
 add_executable(zintzxingcppdemo-test ${PRO_SRCS_CXX})
 
-target_include_directories(
-  zintzxingcppdemo-test
-  PRIVATE
-    ${CMAKE_CURRENT_BINARY_DIR}
+target_include_directories( zintzxingcppdemo-test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} )
+target_compile_options( zintzxingcppdemo-test PRIVATE
+  $<$<BOOL:${FUZZER_MODE}>:-fsanitize=fuzzer,address>
+  $<$<BOOL:${SANITIZE_MODE}>:-fsanitize=address>
 )
-
-if(FUZZER_MODE)
-  target_compile_options(
-    zintzxingcppdemo-test
-  PRIVATE
-    -DFUZZER_MODE -fsanitize=fuzzer,address
-  )
-
-  target_link_options(
-    zintzxingcppdemo-test
-  PRIVATE
-    -fsanitize=fuzzer,address
-  )
-endif()
-
-if(SANITIZE_MODE)
-  target_compile_options(
-    zintzxingcppdemo-test
-  PRIVATE
-    -DSANITIZE_MODE -fsanitize=address
-  )
-
-  target_link_options(
-    zintzxingcppdemo-test
-  PRIVATE
-    -fsanitize=address
-  )
-endif()
-
-target_link_libraries(
-  zintzxingcppdemo-test
-  ${Zint_Link_Name}
-  ${ZXing_Link_Name}
+target_compile_definitions( zintzxingcppdemo-test PRIVATE
+  $<$<BOOL:${FUZZER_MODE}>:FUZZER_MODE>
+  $<$<BOOL:${SANITIZE_MODE}>:SANITIZE_MODE>
+)
+target_link_options( zintzxingcppdemo-test PRIVATE
+  $<$<BOOL:${FUZZER_MODE}>:-fsanitize=fuzzer,address>
+  $<$<BOOL:${SANITIZE_MODE}>:-fsanitize=address>
+)
+target_link_libraries( zintzxingcppdemo-test PRIVATE
+  $<IF:$<BOOL:${BARCODE_LIBS_STATIC}>,zint::zint-static,zint::zint>
+  ZXing::Core
   Threads::Threads
 )
 
@@ -84,24 +59,19 @@ if(NOT FUZZER_MODE)
       ${CRASH_REPRO}
     )
 
-    if(SANITIZE_MODE)
-      target_compile_options(
-        ${CRASH_REPRO_BASE}
-      PRIVATE
-        -DSANITIZE_MODE -fsanitize=address
-      )
+    target_compile_options( ${CRASH_REPRO_BASE} PRIVATE
+      $<$<BOOL:${SANITIZE_MODE}>:-fsanitize=address>
+    )
+    target_compile_definitions( ${CRASH_REPRO_BASE} PRIVATE
+      $<$<BOOL:${SANITIZE_MODE}>:SANITIZE_MODE>
+    )
+    target_link_options( ${CRASH_REPRO_BASE} PRIVATE
+      $<$<BOOL:${SANITIZE_MODE}>:-fsanitize=address>
+    )
 
-      target_link_options(
-        ${CRASH_REPRO_BASE}
-      PRIVATE
-        -fsanitize=address
-      )
-    endif()
-
-    target_link_libraries(
-      ${CRASH_REPRO_BASE}
-      ${Zint_Link_Name}
-      ${ZXing_Link_Name}
+    target_link_libraries( ${CRASH_REPRO_BASE} PRIVATE
+      $<IF:$<BOOL:${BARCODE_LIBS_STATIC}>,zint::zint-static,zint::zint>
+      ZXing::Core
       Threads::Threads
     )
 
