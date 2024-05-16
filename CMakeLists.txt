@@ -5,13 +5,6 @@ project(ZintZXingCppDemo)
 execute_process(
   COMMAND
     "${CMAKE_COMMAND}"
-      -E make_directory build
-  WORKING_DIRECTORY
-    "${CMAKE_BINARY_DIR}/deps"
-)
-execute_process(
-  COMMAND
-    "${CMAKE_COMMAND}"
       -G "${CMAKE_GENERATOR}"
       -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
       -DBARCODE_LIBS_STATIC=${BARCODE_LIBS_STATIC}
