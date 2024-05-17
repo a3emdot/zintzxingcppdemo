@@ -6,9 +6,6 @@ option(FUZZER_MODE "Enable fuzzer mode" OFF)
 option(SANITIZE_MODE "Enable sanitize mode" OFF)
 option(BARCODE_LIBS_STATIC "Use static libraries" OFF)
 
-file(GLOB PRO_SRCS_CXX "src/*.h" "src/*.cpp")
-file(GLOB PRO_SRCS_C "src/*.c")
-
 set(Zint_DIR ${PROJECT_BINARY_DIR}/deps/instal/share/zint)
 set(ZXing_DIR ${PROJECT_BINARY_DIR}/deps/instal/lib/cmake/ZXing)
 
@@ -18,7 +15,16 @@ find_package(Threads REQUIRED)
 
 enable_testing()
 
-add_executable(zintzxingcppdemo-test ${PRO_SRCS_CXX})
+add_executable(zintzxingcppdemo-test)
+target_sources( zintzxingcppdemo-test
+  PRIVATE FILE_SET HEADERS FILES
+    src/barcode.h
+    src/rgbpixeldata.h
+  PRIVATE
+    src/main.cpp
+    src/barcode.cpp
+    src/rgbpixeldata.cpp
+)
 
 target_include_directories( zintzxingcppdemo-test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} )
 target_compile_options( zintzxingcppdemo-test PRIVATE
@@ -46,8 +52,10 @@ add_test(
   zintzxingcppdemo-test
 )
 
+file(GLOB CRASH_REPRODUCER "src/*.c")
+
 if(NOT FUZZER_MODE)
-  foreach(CRASH_REPRO IN LISTS PRO_SRCS_C)
+  foreach(CRASH_REPRO IN LISTS CRASH_REPRODUCER)
     get_filename_component(
       CRASH_REPRO_BASE
       ${CRASH_REPRO}
