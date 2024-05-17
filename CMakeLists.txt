@@ -6,11 +6,8 @@ option(FUZZER_MODE "Enable fuzzer mode" OFF)
 option(SANITIZE_MODE "Enable sanitize mode" OFF)
 option(BARCODE_LIBS_STATIC "Use static libraries" OFF)
 
-set(Zint_DIR ${PROJECT_BINARY_DIR}/deps/instal/share/zint)
-set(ZXing_DIR ${PROJECT_BINARY_DIR}/deps/instal/lib/cmake/ZXing)
+include(cmake/deps.cmake)
 
-find_package(Zint REQUIRED)
-find_package(ZXing REQUIRED)
 find_package(Threads REQUIRED)
 
 enable_testing()
