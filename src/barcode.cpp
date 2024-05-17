@@ -7,7 +7,8 @@
 #include <iostream>
 
 #include <zint.h>
-#include <ZXing/ReadBarcode.h>
+//#include <ZXing/ReadBarcode.h>
+#include <ReadBarcode.h> //TODO figure out how to fix the include statement
 
 int zintSymbology(const std::string& symbology)
 {
