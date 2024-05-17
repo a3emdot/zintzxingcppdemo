@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.24)
+
 include(FetchContent)
 
 set(ZINT_VERSION "2.13.0")
@@ -9,6 +11,7 @@ FetchContent_Declare(
   zint
   URL      ${ZINT_MASTER_FILE}
   URL_HASH SHA256=${ZINT_SHA256}
+  DOWNLOAD_EXTRACT_TIMESTAMP ON
 )
 
 set(ZINT_TEST OFF CACHE INTERNAL "")
@@ -33,6 +36,7 @@ FetchContent_Declare(
   zxing
   URL      ${ZXING_MASTER_FILE}
   URL_HASH SHA256=${ZXING_SHA256}
+  DOWNLOAD_EXTRACT_TIMESTAMP ON
 )
 
 set(BUILD_WRITERS OFF CACHE INTERNAL "")
