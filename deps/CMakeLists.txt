@@ -4,8 +4,8 @@ project(ZintZXingCppDemoDeps)
 
 include(ExternalProject)
 
-set(ZINT_ARCHIVE_VERSION "2.13.0")
 set(ZINT_ARCHIVE_DIR https://github.com/zint/zint/archive)
+set(ZINT_ARCHIVE_VERSION "2.13.0")
 set(ZINT_ARCHIVE_FILE ${ZINT_ARCHIVE_DIR}/${ZINT_ARCHIVE_VERSION}.tar.gz)
 set(ZINT_ARCHIVE_SHA256 "480d95e46d2a2dae204c0f2b6433f185aba50786a0f00d1420752a6e287311ec")
 
@@ -44,8 +44,8 @@ ExternalProject_Add(
   TEST_COMMAND ""
 )
 
-set(ZXING_ARCHIVE_VERSION "2.2.1")
 set(ZXING_ARCHIVE_DIR https://github.com/nu-book/zxing-cpp/archive)
+set(ZXING_ARCHIVE_VERSION "2.2.1")
 set(ZXING_ARCHIVE_FILE ${ZXING_ARCHIVE_DIR}/v${ZXING_ARCHIVE_VERSION}.tar.gz)
 set(ZXING_ARCHIVE_SHA256 "02078ae15f19f9d423a441f205b1d1bee32349ddda7467e2c84e8f08876f8635")
 
