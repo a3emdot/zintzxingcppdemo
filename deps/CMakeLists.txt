@@ -4,6 +4,8 @@ project(ZintZXingCppDemoDeps)
 
 include(ExternalProject)
 
+set(ZINT_REPO https://github.com/zint/zint.git)
+
 set(ZINT_ARCHIVE_DIR https://github.com/zint/zint/archive)
 set(ZINT_ARCHIVE_VERSION "2.13.0")
 set(ZINT_ARCHIVE_FILE ${ZINT_ARCHIVE_DIR}/${ZINT_ARCHIVE_VERSION}.tar.gz)
@@ -44,6 +46,8 @@ ExternalProject_Add(
   CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/prefix ${ZINT_CMAKE_ARGS}
   TEST_COMMAND ""
 )
+
+set(ZXING_REPO https://github.com/zxing-cpp/zxing-cpp.git)
 
 set(ZXING_ARCHIVE_DIR https://github.com/nu-book/zxing-cpp/archive)
 set(ZXING_ARCHIVE_VERSION "2.2.1")
