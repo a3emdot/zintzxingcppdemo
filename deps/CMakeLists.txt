@@ -7,9 +7,9 @@ include(ExternalProject)
 set(ZINT_REPO https://github.com/zint/zint.git)
 
 set(ZINT_ARCHIVE_DIR https://github.com/zint/zint/archive)
-set(ZINT_ARCHIVE_VERSION "2.13.0")
+set(ZINT_ARCHIVE_VERSION "2.14.0")
 set(ZINT_ARCHIVE_FILE ${ZINT_ARCHIVE_DIR}/${ZINT_ARCHIVE_VERSION}.tar.gz)
-set(ZINT_ARCHIVE_SHA256 "480d95e46d2a2dae204c0f2b6433f185aba50786a0f00d1420752a6e287311ec")
+set(ZINT_ARCHIVE_SHA256 "affc3e334e8ee0fc5552aabbc5f1360d4d6d9c6f86285c1e138e3efbbdc4abcb")
 
 set(ZINT_LOCAL_DIR third-party/zint)
 set(ZINT_LOCAL_FILE ${CMAKE_CURRENT_SOURCE_DIR}/distfiles/zint-${ZINT_ARCHIVE_VERSION}.tar.gz)
