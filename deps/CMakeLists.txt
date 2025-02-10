@@ -62,9 +62,9 @@ endif()
 set(ZXING_REPO https://github.com/zxing-cpp/zxing-cpp.git)
 
 set(ZXING_ARCHIVE_DIR https://github.com/nu-book/zxing-cpp/archive)
-set(ZXING_ARCHIVE_VERSION "2.2.1")
+set(ZXING_ARCHIVE_VERSION "2.3.0")
 set(ZXING_ARCHIVE_FILE ${ZXING_ARCHIVE_DIR}/v${ZXING_ARCHIVE_VERSION}.tar.gz)
-set(ZXING_ARCHIVE_SHA256 "02078ae15f19f9d423a441f205b1d1bee32349ddda7467e2c84e8f08876f8635")
+set(ZXING_ARCHIVE_SHA256 "64e4139103fdbc57752698ee15b5f0b0f7af9a0331ecbdc492047e0772c417ba")
 
 set(ZXING_LOCAL_DIR third-party/zxing-cpp)
 set(ZXING_LOCAL_FILE ${CMAKE_CURRENT_SOURCE_DIR}/distfiles/zxing-cpp-v${ZXING_ARCHIVE_VERSION}.tar.gz)
