@@ -546,6 +546,7 @@ bool validateBarcodeNoRotation(
   }
 
   if (!res) {
+    std::cerr << "Validation Error: Error Code 1" << std::endl;
     return false;
   }
 
@@ -554,6 +555,7 @@ bool validateBarcodeNoRotation(
   }
 
   if (!res) {
+    std::cerr << "Validation Error: Error Code 2" << std::endl;
     return false;
   }
 
@@ -569,6 +571,7 @@ bool validateBarcodeNoRotation(
   }
 
   if (!res) {
+    std::cerr << "Validation Error: Error Code 3" << std::endl;
     return false;
   }
 
@@ -577,6 +580,7 @@ bool validateBarcodeNoRotation(
   }
 
   if (!res) {
+    std::cerr << "Validation Error: Error Code 4" << std::endl;
     return false;
   }
 
@@ -589,14 +593,18 @@ bool validateBarcodeNoRotation(
   }
 
   if (!res) {
+    std::cerr << "Validation Error: Error Code 5" << std::endl;
     return false;
   }
 
   if (readData != writtenData) {
+    std::cerr << "readData: |" << readData << "|" << std::endl;
+    std::cerr << "writtenData: |" << writtenData << "|" << std::endl;
     res = false;
   }
 
   if (!res) {
+    std::cerr << "Validation Error: Error Code 6" << std::endl;
     return false;
   }
 
@@ -610,6 +618,7 @@ bool validateBarcodeNoRotation(
   }
 
   if (!res) {
+    std::cerr << "Validation Error: Error Code 7" << std::endl;
     return false;
   }
 
@@ -624,6 +633,7 @@ bool validateBarcodeNoRotation(
   }
 
   if (!res) {
+    std::cerr << "Validation Error: Error Code 8" << std::endl;
     return false;
   }
 
