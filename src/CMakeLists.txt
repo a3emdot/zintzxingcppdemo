@@ -6,12 +6,12 @@ file(GLOB PRO_SRCS_CXX "*.h" "*.cpp")
 file(GLOB PRO_SRCS_C "*.c")
 
 if(UNIX)
-  set(Zint_DIR ${ZintZXingCppDemo_BINARY_DIR}/deps/build/prefix/share/zint)
+  set(Zint_DIR ${ZintZXingCppDemo_BINARY_DIR}/deps/build/prefix/lib/cmake/zint)
   set(ZXing_DIR ${ZintZXingCppDemo_BINARY_DIR}/deps/build/prefix/lib/cmake/ZXing)
 endif(UNIX)
 
 if(WIN32)
-  set(Zint_DIR ${ZintZXingCppDemo_BINARY_DIR}/deps/build/prefix/share/zint)
+  set(Zint_DIR ${ZintZXingCppDemo_BINARY_DIR}/deps/build/prefix/lib/cmake/zint)
   set(ZXing_DIR ${ZintZXingCppDemo_BINARY_DIR}/deps/build/prefix/lib/cmake/ZXing)
 endif(WIN32)
 
