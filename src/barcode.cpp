@@ -483,16 +483,16 @@ ZXing::BarcodeFormat zxingSymbology(const std::string& symbology)
     return ZXing::BarcodeFormat::Code128;
   }
   if (symbology == "GS1_DBAR_OMN") {
-    return ZXing::BarcodeFormat::DataBar;
+    return ZXing::BarcodeFormat::DataBarOmni;
   }
   if (symbology == "GS1_DBAR_EXP") {
-    return ZXing::BarcodeFormat::DataBarExpanded;
+    return ZXing::BarcodeFormat::DataBarExp;
   }
   if (symbology == "GS1_DBAR_OMNSTK") {
-    return ZXing::BarcodeFormat::DataBar;
+    return ZXing::BarcodeFormat::DataBarStk;
   }
   if (symbology == "GS1_DBAR_EXPSTK") {
-    return ZXing::BarcodeFormat::DataBarExpanded;
+    return ZXing::BarcodeFormat::DataBarExpStk;
   }
   if (symbology == "AZTEC") {
     return ZXing::BarcodeFormat::Aztec;
@@ -514,9 +514,15 @@ std::string zxingFixReadData(
 {
   if (zintsymbology == BARCODE_UPCA) {
     if (writtendata.size() == 12) {
-      return readdata;
+      return readdata.substr(1, readdata.size()-1);
     }
-    return readdata.substr(0, readdata.size()-1);
+    return readdata.substr(1, readdata.size()-2);
+  }
+  if (zintsymbology == BARCODE_UPCA_CHK) {
+    if (writtendata.size() == 12) {
+      return readdata.substr(1, readdata.size()-1);
+    }
+    return readdata.substr(1, readdata.size()-2);
   }
   if (zintsymbology == BARCODE_EANX) {
     if (writtendata.size() == 8) {
@@ -527,6 +533,13 @@ std::string zxingFixReadData(
     }
     return readdata.substr(0, readdata.size()-1);
   }
+  if (zintsymbology == BARCODE_DBAR_OMN) {
+    return readdata.substr(4, readdata.size()-4);
+  }
+  if (zintsymbology == BARCODE_DBAR_OMNSTK) {
+    return readdata.substr(4, readdata.size()-4);
+  }
+
   return readdata;
 }
 
@@ -557,13 +570,13 @@ bool validateBarcodeNoRotation(
     return false;
   }
 
-  ZXing::Result parseresult;
+  ZXing::Barcode result;
   try {
     auto options = ZXing::ReaderOptions().setFormats(hintSymbology);
 
     ZXing::ImageView view(rgb.data().data(), rgb.width(), rgb.height(), ZXing::ImageFormat::RGB);
 
-    parseresult = ZXing::ReadBarcode(view, options);
+    result = ZXing::ReadBarcode(view, options);
   } catch (...) {
     res = false;
   }
@@ -572,7 +585,7 @@ bool validateBarcodeNoRotation(
     return false;
   }
 
-  if (!parseresult.isValid()) {
+  if (!result.isValid()) {
     res = false;
   }
 
@@ -581,7 +594,7 @@ bool validateBarcodeNoRotation(
   }
 
   std::string writtenData = data;
-  std::string readData = parseresult.text();
+  std::string readData = result.text();
   try {
     readData = zxingFixReadData(zintSymbology(symbology), writtenData, readData);
   } catch (...) {
@@ -604,7 +617,7 @@ bool validateBarcodeNoRotation(
   ZXing::BarcodeFormat readSymbology = ZXing::BarcodeFormat::None;
   try {
     writtenSymbology = zxingSymbology(symbology);
-    readSymbology = parseresult.format();
+    readSymbology = result.format();
   } catch (...) {
     res = false;
   }
