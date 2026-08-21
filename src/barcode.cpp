@@ -534,10 +534,16 @@ std::string zxingFixReadData(
     return readdata.substr(0, readdata.size()-1);
   }
   if (zintsymbology == BARCODE_DBAR_OMN) {
-    return readdata.substr(4, readdata.size()-4);
+    if (writtendata.size() == 14) {
+      return readdata.substr(4, readdata.size()-4);
+    }
+    return readdata.substr(4, readdata.size()-5);
   }
   if (zintsymbology == BARCODE_DBAR_OMNSTK) {
-    return readdata.substr(4, readdata.size()-4);
+    if (writtendata.size() == 14) {
+      return readdata.substr(4, readdata.size()-4);
+    }
+    return readdata.substr(4, readdata.size()-5);
   }
 
   return readdata;
